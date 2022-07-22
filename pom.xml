@@ -2,7 +2,7 @@
 <!--
   ~ JBoss, Home of Professional Open Source.
   ~
-  ~ Copyright 2021 Red Hat, Inc., and individual contributors
+  ~ Copyright 2022 Red Hat, Inc., and individual contributors
   ~ as indicated by the @author tags.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -51,6 +51,25 @@
         <url>https://github.com/resteasy/resteasy-rxjava/tree/main/</url>
     </scm>
 
+    <properties>
+        <!-- Compile to Java 8 -->
+        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>8</maven.compiler.source>
+    </properties>
+
     <modules>
     </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>net.revelc.code.formatter</groupId>
+                <artifactId>formatter-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>net.revelc.code</groupId>
+                <artifactId>impsort-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
