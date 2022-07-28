@@ -27,13 +27,13 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.SeBootstrap;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.core.Application;
+import jakarta.ws.rs.core.Response;
 
 import org.jboss.logging.Logger;
-import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -47,27 +47,28 @@ import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.Disposable;
 
 public class RxTest {
-    private static UndertowJaxrsServer server;
+    private static SeBootstrap.Instance server;
 
     private static CountDownLatch latch;
     private static final AtomicReference<Object> value = new AtomicReference<>();
     private static final Logger LOG = Logger.getLogger(RxTest.class);
 
     @BeforeAll
-    public static void beforeClass() {
-        server = new UndertowJaxrsServer();
-        server.getDeployment().getActualResourceClasses().add(RxResource.class);
-        server.getDeployment().getActualProviderClasses().add(RxInjector.class);
-        server.getDeployment().start();
-        server.getDeployment().registration();
-        // Required to explicitly deploy
-        server.deploy();
-        server.start();
+    public static void beforeClass() throws Exception {
+        server = SeBootstrap.start(new Application() {
+            @Override
+            public Set<Class<?>> getClasses() {
+                return Set.of(RxResource.class, RxInjector.class);
+            }
+        }).toCompletableFuture()
+                .get(10, TimeUnit.SECONDS);
     }
 
     @AfterAll
-    public static void afterClass() {
-        server.stop();
+    public static void afterClass() throws Exception {
+        server.stop()
+                .toCompletableFuture()
+                .get(10, TimeUnit.SECONDS);
         server = null;
     }
 
@@ -130,17 +131,19 @@ public class RxTest {
 
     @Test
     public void testObservableContext() throws Exception {
-        ObservableRxInvoker invoker = ClientBuilder.newClient().target(generateURL("/context/observable")).request()
-                .rx(ObservableRxInvoker.class);
-        @SuppressWarnings("unchecked")
-        Observable<String> observable = (Observable<String>) invoker.get();
-        Set<String> data = new TreeSet<>(); //FIXME [RESTEASY-2778] Intermittent flow / flux test failure
-        disposable = observable.subscribe(
-                data::add,
-                (Throwable t) -> LOG.error(t.getMessage(), t),
-                () -> latch.countDown());
-        Assertions.assertTrue(latch.await(5, TimeUnit.SECONDS), "Did not complete request within 5 seconds");
-        Assertions.assertArrayEquals(new String[] { "one", "two" }, data.toArray());
+        try (Client client = ClientBuilder.newClient()) {
+            ObservableRxInvoker invoker = client.target(generateURL("/context/observable")).request()
+                    .rx(ObservableRxInvoker.class);
+            @SuppressWarnings("unchecked")
+            Observable<String> observable = (Observable<String>) invoker.get();
+            Set<String> data = new TreeSet<>(); //FIXME [RESTEASY-2778] Intermittent flow / flux test failure
+            disposable = observable.subscribe(
+                    data::add,
+                    (Throwable t) -> LOG.error(t.getMessage(), t),
+                    () -> latch.countDown());
+            Assertions.assertTrue(latch.await(5, TimeUnit.SECONDS), "Did not complete request within 5 seconds");
+            Assertions.assertArrayEquals(new String[] { "one", "two" }, data.toArray());
+        }
     }
 
     @Test
@@ -172,15 +175,6 @@ public class RxTest {
                 });
         Assertions.assertTrue(latch.await(5, TimeUnit.SECONDS), "Did not complete request within 5 seconds");
         Assertions.assertArrayEquals(new String[] { "one", "two" }, data.toArray());
-    }
-
-    // @Test
-    public void testChunked() throws Exception {
-        Invocation.Builder request = client.target(generateURL("/chunked")).request();
-        Response response = request.get();
-        String entity = response.readEntity(String.class);
-        Assertions.assertEquals(200, response.getStatus());
-        Assertions.assertEquals("onetwo", entity);
     }
 
     @Test

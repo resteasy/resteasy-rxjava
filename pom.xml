@@ -60,19 +60,15 @@
     </developers>
 
     <properties>
-        <version.jakarta.ws.rs-api>2.1.6</version.jakarta.ws.rs-api>
+        <version.jakarta.ws.rs-api>3.1.0</version.jakarta.ws.rs-api>
         <version.org.jboss.logging>3.5.0.Final</version.org.jboss.logging>
         <version.org.jboss.logging.tools>2.2.1.Final</version.org.jboss.logging.tools>
-        <version.org.jboss.resteasy>5.0.4.Final</version.org.jboss.resteasy>
+        <version.org.jboss.resteasy>6.1.0.Beta3</version.org.jboss.resteasy>
         <version.org.junit>5.9.0</version.org.junit>
 
         <!-- Plugin versions -->
         <version.release.plugin>3.0.0-M6</version.release.plugin>
         <version.nexus.staging.maven.plugin>1.6.13</version.nexus.staging.maven.plugin>
-
-        <!-- Compile to Java 8 -->
-        <maven.compiler.target>8</maven.compiler.target>
-        <maven.compiler.source>8</maven.compiler.source>
     </properties>
 
     <distributionManagement>

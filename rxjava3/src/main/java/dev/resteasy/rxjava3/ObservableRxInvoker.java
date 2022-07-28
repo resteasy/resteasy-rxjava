@@ -19,7 +19,7 @@
 
 package dev.resteasy.rxjava3;
 
-import javax.ws.rs.client.RxInvoker;
+import jakarta.ws.rs.client.RxInvoker;
 
 import io.reactivex.rxjava3.core.Observable;
 

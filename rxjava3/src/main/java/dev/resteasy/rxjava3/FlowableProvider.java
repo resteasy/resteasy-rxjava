@@ -19,7 +19,7 @@
 
 package dev.resteasy.rxjava3;
 
-import javax.ws.rs.ext.Provider;
+import jakarta.ws.rs.ext.Provider;
 
 import org.jboss.resteasy.spi.AsyncStreamProvider;
 import org.reactivestreams.Publisher;

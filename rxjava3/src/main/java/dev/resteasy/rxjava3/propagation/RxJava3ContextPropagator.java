@@ -19,10 +19,10 @@
 
 package dev.resteasy.rxjava3.propagation;
 
-import javax.ws.rs.RuntimeType;
-import javax.ws.rs.core.Feature;
-import javax.ws.rs.core.FeatureContext;
-import javax.ws.rs.ext.Provider;
+import jakarta.ws.rs.RuntimeType;
+import jakarta.ws.rs.core.Feature;
+import jakarta.ws.rs.core.FeatureContext;
+import jakarta.ws.rs.ext.Provider;
 
 import org.jboss.resteasy.core.ResteasyContext;
 import org.jboss.resteasy.spi.Dispatcher;
