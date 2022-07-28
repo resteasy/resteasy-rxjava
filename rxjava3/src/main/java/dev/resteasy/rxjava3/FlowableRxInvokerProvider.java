@@ -21,10 +21,10 @@ package dev.resteasy.rxjava3;
 
 import java.util.concurrent.ExecutorService;
 
-import javax.ws.rs.client.RxInvokerProvider;
-import javax.ws.rs.client.SyncInvoker;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.ext.Provider;
+import jakarta.ws.rs.client.RxInvokerProvider;
+import jakarta.ws.rs.client.SyncInvoker;
+import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.ext.Provider;
 
 @Provider
 public class FlowableRxInvokerProvider implements RxInvokerProvider<FlowableRxInvoker> {

@@ -19,7 +19,7 @@
 
 package dev.resteasy.rxjava3.i18n;
 
-import javax.ws.rs.ProcessingException;
+import jakarta.ws.rs.ProcessingException;
 
 import org.jboss.logging.annotations.Message;
 import org.jboss.logging.annotations.MessageBundle;

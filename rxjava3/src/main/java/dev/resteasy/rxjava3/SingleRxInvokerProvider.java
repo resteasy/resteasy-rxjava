@@ -21,8 +21,8 @@ package dev.resteasy.rxjava3;
 
 import java.util.concurrent.ExecutorService;
 
-import javax.ws.rs.client.RxInvokerProvider;
-import javax.ws.rs.client.SyncInvoker;
+import jakarta.ws.rs.client.RxInvokerProvider;
+import jakarta.ws.rs.client.SyncInvoker;
 
 import org.jboss.resteasy.client.jaxrs.internal.ClientInvocationBuilder;
 
