@@ -61,7 +61,7 @@
 
     <properties>
         <version.jakarta.ws.rs-api>3.1.0</version.jakarta.ws.rs-api>
-        <version.org.jboss.logging>3.5.0.Final</version.org.jboss.logging>
+        <version.org.jboss.logging>3.5.1.Final</version.org.jboss.logging>
         <version.org.jboss.logging.tools>2.2.1.Final</version.org.jboss.logging.tools>
         <version.org.jboss.resteasy>6.2.3.Final</version.org.jboss.resteasy>
         <version.org.junit>5.9.3</version.org.junit>
