@@ -29,7 +29,7 @@
     <artifactId>resteasy-rxjava3</artifactId>
 
     <properties>
-        <version.io.reactivex.rxjava3-rxjava>3.1.6</version.io.reactivex.rxjava3-rxjava>
+        <version.io.reactivex.rxjava3-rxjava>3.1.7</version.io.reactivex.rxjava3-rxjava>
     </properties>
 
     <dependencies>
