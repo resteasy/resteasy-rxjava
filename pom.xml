@@ -68,7 +68,7 @@
 
         <!-- Plugin versions -->
         <version.release.plugin>3.0.0-M6</version.release.plugin>
-        <version.nexus.staging.maven.plugin>1.6.13</version.nexus.staging.maven.plugin>
+        <version.nexus.staging.maven.plugin>1.7.0</version.nexus.staging.maven.plugin>
     </properties>
 
     <distributionManagement>
